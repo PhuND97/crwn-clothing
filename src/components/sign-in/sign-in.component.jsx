@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { signInWithGoogle } from "../../firebase/firebase.ultis";
+import { auth, signInWithGoogle } from "../../firebase/firebase.ultis";
 import "./sign-in.styles.scss";
 
 function SignIn() {
@@ -9,14 +9,22 @@ function SignIn() {
 
 	function handleChange(event) {
 		event.preventDefault();
-		const [name, value] = event.currentTarget;
+		const { name, value } = event.currentTarget;
 		const newData = { ...data };
 		newData[name] = value;
 		setData(newData);
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
+
+		const { email, password } = data;
+		try {
+			await auth.signInWithEmailAndPassword(email, password);
+			setData({ email: "", password: "" });
+		} catch (error) {
+			console.log(error.message);
+		}
 	}
 	return (
 		<div className="sign-in">
