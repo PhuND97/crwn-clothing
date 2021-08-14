@@ -8,7 +8,19 @@ const slice = createSlice({
 			cart.hidden = !cart.hidden;
 		},
 		addItem: (cart, action) => {
-			cart.cartItems.push(action.payload);
+			const existingCartItem = cart.cartItems.find(
+				(cartItem) => cartItem.id === action.payload.id
+			);
+
+			if (existingCartItem) {
+				cart.cartItems.map((cartItem) =>
+					cartItem.id === action.payload.id
+						? (cartItem.quantity += 1)
+						: cartItem
+				);
+			} else {
+				cart.cartItems.push({ ...action.payload, quantity: 1 });
+			}
 		},
 	},
 });
