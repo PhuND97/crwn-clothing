@@ -8,11 +8,11 @@ import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.compone
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.ultis";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser } from "./store/reducer/users";
+import { getCurrentUser, setCurrentUser } from "./store/reducer/users";
 
 function App() {
 	const dispatch = useDispatch();
-	const currentUser = useSelector((state) => state.users.currentUser);
+	const currentUser = useSelector(getCurrentUser);
 	let unsubscribeFromAuth = () => {};
 
 	useEffect(() => {

@@ -43,3 +43,8 @@ export const getItemQuantities = createSelector(
 			0
 		)
 );
+
+export const getCartHidden = createSelector(
+	(state) => state.cart,
+	(cart) => cart.hidden
+);
