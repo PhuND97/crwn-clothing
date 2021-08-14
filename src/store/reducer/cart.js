@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
 	name: "cart",
@@ -27,3 +27,19 @@ const slice = createSlice({
 
 export const { toggleCartHidden, addItem } = slice.actions;
 export default slice.reducer;
+
+// Selector
+export const getCartItems = createSelector(
+	(state) => state.cart,
+	(cart) => cart.cartItems
+);
+
+export const getItemQuantities = createSelector(
+	(state) => state.cart.cartItems,
+	(cartItems) =>
+		cartItems.reduce(
+			(accumulateQuantity, cartItem) =>
+				accumulateQuantity + cartItem.quantity,
+			0
+		)
+);
