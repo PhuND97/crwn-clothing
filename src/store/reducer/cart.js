@@ -22,10 +22,39 @@ const slice = createSlice({
 				cart.cartItems.push({ ...action.payload, quantity: 1 });
 			}
 		},
+		removeItem: (cart, action) => {
+			const indexOfItem = cart.cartItems.findIndex(
+				(cartItem) => cartItem.id === action.payload.id
+			);
+			cart.cartItems.splice(indexOfItem, 1);
+		},
+		increaseQuantity: (cart, action) => {
+			const indexOfItem = cart.cartItems.findIndex(
+				(cartItem) => cartItem.id === action.payload.id
+			);
+			cart.cartItems[indexOfItem].quantity += 1;
+		},
+		decreaseQuantity: (cart, action) => {
+			const indexOfItem = cart.cartItems.findIndex(
+				(cartItem) => cartItem.id === action.payload.id
+			);
+
+			if (cart.cartItems[indexOfItem].quantity === 1) {
+				cart.cartItems.splice(indexOfItem, 1);
+			} else {
+				cart.cartItems[indexOfItem].quantity -= 1;
+			}
+		},
 	},
 });
 
-export const { toggleCartHidden, addItem } = slice.actions;
+export const {
+	toggleCartHidden,
+	addItem,
+	removeItem,
+	increaseQuantity,
+	decreaseQuantity,
+} = slice.actions;
 export default slice.reducer;
 
 // Selector
