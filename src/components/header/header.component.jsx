@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.ultis";
-
-import { ReactComponent as Logo } from "../../assets/crown.svg";
-import "./header.styles.scss";
 import { useSelector } from "react-redux";
+import { ReactComponent as Logo } from "../../assets/crown.svg";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropwDown from "../cart-dropdown/cart-dropdown.component";
+import "./header.styles.scss";
 
 function Header() {
 	const currentUser = useSelector((state) => state.users.currentUser);
+	const hiddenCart = useSelector((state) => state.cart.hidden);
 
 	return (
 		<div className="header">
@@ -30,7 +32,9 @@ function Header() {
 						SIGN IN
 					</Link>
 				)}
+				<CartIcon />
 			</div>
+			{hiddenCart && <CartDropwDown />}
 		</div>
 	);
 }

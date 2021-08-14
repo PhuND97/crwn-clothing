@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
@@ -7,11 +7,12 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.ultis";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./store/users";
 
 function App() {
 	const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.users.currentUser);
 	let unsubscribeFromAuth = () => {};
 
 	useEffect(() => {
@@ -37,7 +38,17 @@ function App() {
 			<Header />
 			<Switch>
 				<Route path="/shop" component={ShopPage} />
-				<Route path="/signin" component={SignInAndSignUpPage} />
+				<Route
+					exact
+					path="/signin"
+					render={() =>
+						currentUser ? (
+							<Redirect to="/" />
+						) : (
+							<SignInAndSignUpPage />
+						)
+					}
+				/>
 				<Route path="/" component={HomePage} />
 			</Switch>
 		</div>

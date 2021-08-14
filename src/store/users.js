@@ -1,4 +1,4 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
 	name: "users",
@@ -12,8 +12,3 @@ const slice = createSlice({
 
 export const { setCurrentUser } = slice.actions;
 export default slice.reducer;
-
-// Selector
-export const getCurrentUser = createSelector(
-	(state) => state.users.currentUser
-);
