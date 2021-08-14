@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component";
+import CheckOutPage from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.ultis";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, setCurrentUser } from "./store/reducer/users";
+import "./App.css";
 
 function App() {
 	const dispatch = useDispatch();
@@ -38,6 +38,7 @@ function App() {
 			<Header />
 			<Switch>
 				<Route path="/shop" component={ShopPage} />
+				<Route path="/checkout" component={CheckOutPage} />
 				<Route
 					exact
 					path="/signin"
