@@ -15,3 +15,14 @@ export const getShopData = createSelector(
 	(state) => state.shop,
 	(shop) => shop.collections
 );
+
+export const getCollection = (collectionUrlParam) =>
+	createSelector(
+		(state) => state.shop,
+		(shop) => shop.collections[collectionUrlParam]
+	);
+
+export const getCollectionForPreview = createSelector(
+	(state) => state.shop.collections,
+	(collections) => Object.keys(collections).map((key) => collections[key])
+);
