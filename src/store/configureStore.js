@@ -13,13 +13,18 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export default function () {
+	const middlewares = [
+		...getDefaultMiddleware({
+			serializableCheck: false,
+		}),
+	];
+
+	if (process.env.NODE_ENV === "development") {
+		middlewares.push(logger);
+	}
+
 	return configureStore({
 		reducer: persistedReducer,
-		middleware: [
-			...getDefaultMiddleware({
-				serializableCheck: false,
-			}),
-			logger,
-		],
+		middleware: middlewares,
 	});
 }
