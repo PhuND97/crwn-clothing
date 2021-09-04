@@ -12,6 +12,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
+// eslint-disable-next-line
 export default function () {
 	const middlewares = [
 		...getDefaultMiddleware({

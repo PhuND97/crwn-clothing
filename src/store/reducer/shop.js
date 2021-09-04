@@ -6,9 +6,14 @@ const INITIAL_STATE = { collections: SHOP_DATA };
 const slice = createSlice({
 	name: "shop",
 	initialState: INITIAL_STATE,
-	reducers: {},
+	reducers: {
+		updateCollections: (shop, action) => {
+			shop.collections = action.payload;
+		},
+	},
 });
 
+export const { updateCollections } = slice.actions;
 export default slice.reducer;
 
 export const getShopData = createSelector(
