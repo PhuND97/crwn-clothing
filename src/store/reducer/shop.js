@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import SHOP_DATA from "../data/shop.data";
 
-const INITIAL_STATE = { collections: SHOP_DATA };
+const INITIAL_STATE = { collections: null };
 
 const slice = createSlice({
 	name: "shop",
@@ -24,10 +23,14 @@ export const getShopData = createSelector(
 export const getCollection = (collectionUrlParam) =>
 	createSelector(
 		(state) => state.shop,
-		(shop) => shop.collections[collectionUrlParam]
+		(shop) =>
+			shop.collections ? shop.collections[collectionUrlParam] : null
 	);
 
 export const getCollectionForPreview = createSelector(
 	(state) => state.shop.collections,
-	(collections) => Object.keys(collections).map((key) => collections[key])
+	(collections) =>
+		collections
+			? Object.keys(collections).map((key) => collections[key])
+			: []
 );
